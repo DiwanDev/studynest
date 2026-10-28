@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}StudyNest{% endblock %}</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="container nav-content">
+            <a class="logo" href="{{ url_for('home') }}">
+                Study<span>Nest</span>
+            </a>
+
+            <nav>
+                <a class="active" href="{{ url_for('home') }}">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>StudyNest — Learn Flask one step at a time.</p>
+        </div>
+    </footer>
+</body>
+</html>

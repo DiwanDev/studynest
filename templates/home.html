@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Home | StudyNest{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero-layout">
+        <div class="hero-text">
+            <p class="eyebrow">STUDY WITH CLARITY</p>
+
+            <h1>Organize your studies.<br>
+                <span>Achieve your goals.</span>
+            </h1>
+
+            <p class="hero-description">
+                StudyNest gives you one simple place to organize assignments,
+                practicals and revision tasks.
+            </p>
+
+            <a class="primary-button" href="#how-it-works">
+                Explore StudyNest
+            </a>
+        </div>
+
+        <div class="preview-card">
+            <div class="card-heading">
+                <div>
+                    <p class="small-label">TODAY</p>
+                    <h2>My study tasks</h2>
+                </div>
+
+                <span class="task-count">3 tasks</span>
+            </div>
+
+            <div class="task">
+                <span class="task-circle"></span>
+                <div>
+                    <h3>Learn Flask routes</h3>
+                    <p>Python • Today</p>
+                </div>
+            </div>
+
+            <div class="task">
+                <span class="task-circle"></span>
+                <div>
+                    <h3>Complete Java practical</h3>
+                    <p>Advanced Java • Tomorrow</p>
+                </div>
+            </div>
+
+            <div class="task completed">
+                <span class="task-circle">✓</span>
+                <div>
+                    <h3>Revise DAA notes</h3>
+                    <p>Completed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="how-it-works" id="how-it-works">
+    <div class="container">
+        <p class="eyebrow">HOW IT WORKS</p>
+        <h2 class="section-title">A simple way to stay organized</h2>
+
+        <div class="feature-grid">
+            <article class="feature-card">
+                <span>01</span>
+                <h3>Add a task</h3>
+                <p>Enter the work you need to complete.</p>
+            </article>
+
+            <article class="feature-card">
+                <span>02</span>
+                <h3>Track progress</h3>
+                <p>View pending and completed study tasks.</p>
+            </article>
+
+            <article class="feature-card">
+                <span>03</span>
+                <h3>Stay focused</h3>
+                <p>Finish one clearly defined task at a time.</p>
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}
