@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}My Tasks | StudyNest{% endblock %}
+
+{% block content %}
+<section class="tasks-page">
+    <div class="container">
+        <div class="page-heading">
+            <div>
+                <p class="eyebrow">MY STUDY PLAN</p>
+                <h1>Study Tasks</h1>
+                <p>
+                    Keep track of your assignments, practicals and revision.
+                </p>
+            </div>
+
+            <div class="total-tasks">
+                <strong>{{ tasks | length }}</strong>
+                <span>Total tasks</span>
+            </div>
+        </div>
+
+        <div class="tasks-panel">
+            {% if tasks %}
+                {% for task in tasks %}
+                    <article class="task-row
+                        {% if task.completed %}task-row-completed{% endif %}">
+
+                        <div class="status-icon">
+                            {% if task.completed %}
+                                ✓
+                            {% endif %}
+                        </div>
+
+                        <div class="task-details">
+                            <h2>{{ task.title }}</h2>
+
+                            <div class="task-meta">
+                                <span>{{ task.subject }}</span>
+                                <span>{{ task.due_date }}</span>
+                            </div>
+                        </div>
+
+                        {% if task.completed %}
+                            <span class="status-badge completed-badge">
+                                Completed
+                            </span>
+                        {% else %}
+                            <span class="status-badge pending-badge">
+                                Pending
+                            </span>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <h2>No tasks yet</h2>
+                    <p>Your study tasks will appear here.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

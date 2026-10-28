@@ -20,8 +20,20 @@
             </a>
 
             <nav>
-                <a class="active" href="{{ url_for('home') }}">Home</a>
-            </nav>
+                <a
+                    class="{% if request.endpoint == 'home' %}active{% endif %}"
+                    href="{{ url_for('home') }}"
+                 >
+                        Home
+                 </a>
+
+                <a
+                        class="{% if request.endpoint == 'task_list' %}active{% endif %}"
+                         href="{{ url_for('task_list') }}"
+                >
+                        Tasks
+    </a>
+</nav>
         </div>
     </header>
 
