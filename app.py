@@ -99,3 +99,23 @@ def add_task():
         return redirect(url_for("task_list"))
 
     return render_template("add_task.html", form_data={})
+@app.route("/tasks/<int:task_id>/toggle", methods=["POST"])
+def toggle_task(task_id):
+    database = get_database()
+
+    database.execute(
+        """
+        UPDATE tasks
+        SET completed =
+            CASE
+                WHEN completed = 0 THEN 1
+                ELSE 0
+            END
+        WHERE id = ?
+        """,
+        (task_id,)
+    )
+
+    database.commit()
+
+    return redirect(url_for("task_list"))

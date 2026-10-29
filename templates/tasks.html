@@ -14,43 +14,66 @@
                 </p>
             </div>
 
-            <div class="total-tasks">
-                <strong>{{ tasks | length }}</strong>
-                <span>Total tasks</span>
-            </div>
+            <div class="page-actions">
+    <div class="total-tasks">
+        <strong>{{ tasks | length }}</strong>
+        <span>Total tasks</span>
+    </div>
+
+    <a class="primary-button" href="{{ url_for('add_task') }}">
+        + Add Task
+    </a>
+</div>
         </div>
 
         <div class="tasks-panel">
             {% if tasks %}
                 {% for task in tasks %}
                     <article class="task-row
-                        {% if task.completed %}task-row-completed{% endif %}">
+    {% if task.completed %}task-row-completed{% endif %}">
 
-                        <div class="status-icon">
-                            {% if task.completed %}
-                                ✓
-                            {% endif %}
-                        </div>
+    <div class="status-icon">
+        {% if task.completed %}
+            ✓
+        {% endif %}
+    </div>
 
-                        <div class="task-details">
-                            <h2>{{ task.title }}</h2>
+    <div class="task-details">
+        <h2>{{ task.title }}</h2>
 
-                            <div class="task-meta">
-                                <span>{{ task.subject }}</span>
-                                <span>{{ task.due_date }}</span>
-                            </div>
-                        </div>
+        <div class="task-meta">
+            <span>{{ task.subject }}</span>
+            <span>{{ task.due_date }}</span>
+        </div>
+    </div>
 
-                        {% if task.completed %}
-                            <span class="status-badge completed-badge">
-                                Completed
-                            </span>
-                        {% else %}
-                            <span class="status-badge pending-badge">
-                                Pending
-                            </span>
-                        {% endif %}
-                    </article>
+    <div class="task-actions">
+        {% if task.completed %}
+            <span class="status-badge completed-badge">
+                Completed
+            </span>
+        {% else %}
+            <span class="status-badge pending-badge">
+                Pending
+            </span>
+        {% endif %}
+
+        <form
+            action="{{ url_for('toggle_task', task_id=task.id) }}"
+            method="POST"
+        >
+            {% if task.completed %}
+                <button class="toggle-button" type="submit">
+                    Mark Pending
+                </button>
+            {% else %}
+                <button class="toggle-button" type="submit">
+                    Mark Complete
+                </button>
+            {% endif %}
+        </form>
+    </div>
+</article>
                 {% endfor %}
             {% else %}
                 <div class="empty-state">

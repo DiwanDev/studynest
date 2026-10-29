@@ -426,3 +426,42 @@ nav {
         margin-left: 44px;
     }
 }
+.page-actions {
+    align-items: center;
+    display: flex;
+    gap: 14px;
+}
+/* Task action buttons */
+
+.task-actions {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.toggle-button {
+    background-color: transparent;
+    border: 1px solid var(--deep-aubergine);
+    border-radius: 7px;
+    color: var(--deep-aubergine);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 7px 11px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.toggle-button:hover {
+    background-color: var(--deep-aubergine);
+    color: var(--white);
+}
+
+@media (max-width: 600px) {
+    .task-actions {
+        align-items: flex-start;
+        margin-left: 44px;
+        width: 100%;
+    }
+}
