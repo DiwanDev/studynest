@@ -1,7 +1,7 @@
 import sqlite3
 from pathlib import Path
 
-from flask import Flask, g, redirect, render_template, request, url_for
+from flask import Flask, abort, g, redirect, render_template, request, url_for
 
 app = Flask(__name__)
 
@@ -119,3 +119,50 @@ def toggle_task(task_id):
     database.commit()
 
     return redirect(url_for("task_list"))
+@app.route("/tasks/<int:task_id>/edit", methods=["GET", "POST"])
+def edit_task(task_id):
+    database = get_database()
+
+    task = database.execute(
+        """
+        SELECT id, title, subject, due_date, completed
+        FROM tasks
+        WHERE id = ?
+        """,
+        (task_id,)
+    ).fetchone()
+
+    if task is None:
+        abort(404)
+
+    if request.method == "POST":
+        title = request.form.get("title", "").strip()
+        subject = request.form.get("subject", "").strip()
+        due_date = request.form.get("due_date", "").strip()
+
+        if not title or not subject or not due_date:
+            return render_template(
+                "edit_task.html",
+                task_id=task_id,
+                error="Please complete all fields.",
+                form_data=request.form
+            )
+
+        database.execute(
+            """
+            UPDATE tasks
+            SET title = ?, subject = ?, due_date = ?
+            WHERE id = ?
+            """,
+            (title, subject, due_date, task_id)
+        )
+
+        database.commit()
+
+        return redirect(url_for("task_list"))
+
+    return render_template(
+        "edit_task.html",
+        task_id=task_id,
+        form_data=dict(task)
+    )

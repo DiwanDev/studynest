@@ -465,3 +465,25 @@ nav {
         width: 100%;
     }
 }
+/* Edit task button */
+
+.task-buttons {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+}
+
+.edit-button {
+    background-color: var(--marigold);
+    border: 1px solid var(--marigold);
+    border-radius: 7px;
+    color: var(--deep-aubergine);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 7px 11px;
+    text-decoration: none;
+}
+
+.edit-button:hover {
+    box-shadow: 0 4px 12px rgba(58, 15, 52, 0.15);
+}

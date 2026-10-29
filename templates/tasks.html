@@ -48,15 +48,23 @@
     </div>
 
     <div class="task-actions">
-        {% if task.completed %}
-            <span class="status-badge completed-badge">
-                Completed
-            </span>
-        {% else %}
-            <span class="status-badge pending-badge">
-                Pending
-            </span>
-        {% endif %}
+    {% if task.completed %}
+        <span class="status-badge completed-badge">
+            Completed
+        </span>
+    {% else %}
+        <span class="status-badge pending-badge">
+            Pending
+        </span>
+    {% endif %}
+
+    <div class="task-buttons">
+        <a
+            class="edit-button"
+            href="{{ url_for('edit_task', task_id=task.id) }}"
+        >
+            Edit
+        </a>
 
         <form
             action="{{ url_for('toggle_task', task_id=task.id) }}"
@@ -73,6 +81,7 @@
             {% endif %}
         </form>
     </div>
+</div>
 </article>
                 {% endfor %}
             {% else %}
