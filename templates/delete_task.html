@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Task | StudyNest{% endblock %}
+
+{% block content %}
+<section class="confirm-page">
+    <div class="confirm-card">
+        <div class="warning-icon">!</div>
+
+        <p class="eyebrow">DELETE STUDY TASK</p>
+
+        <h1>Delete this task?</h1>
+
+        <p class="confirm-description">
+            You are about to permanently delete the following task:
+        </p>
+
+        <div class="delete-task-preview">
+            <h2>{{ task.title }}</h2>
+
+            <p>
+                {{ task.subject }} · {{ task.due_date }}
+            </p>
+        </div>
+
+        <p class="delete-warning">
+            This action cannot be undone.
+        </p>
+
+        <div class="confirm-actions">
+            <a
+                class="secondary-button"
+                href="{{ url_for('task_list') }}"
+            >
+                Cancel
+            </a>
+
+            <form
+                action="{{ url_for('delete_task', task_id=task.id) }}"
+                method="POST"
+            >
+                <button class="delete-confirm-button" type="submit">
+                    Delete Permanently
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
