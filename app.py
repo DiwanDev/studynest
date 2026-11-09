@@ -1,10 +1,23 @@
+import os
 import sqlite3
 from pathlib import Path
 
-from flask import Flask, abort, g, redirect, render_template, request, url_for
+from flask import (
+    Flask,
+    abort,
+    flash,
+    g,
+    redirect,
+    render_template,
+    request,
+    url_for
+)
 
 app = Flask(__name__)
-
+app.config["SECRET_KEY"] = os.environ.get(
+    "SECRET_KEY",
+    "studynest-development-key"
+)
 
 DATABASE = Path(app.instance_path) / "studynest.db"
 
@@ -95,7 +108,7 @@ def add_task():
         )
 
         database.commit()
-
+        flash("Task added successfully.", "success")
         return redirect(url_for("task_list"))
 
     return render_template("add_task.html", form_data={})
@@ -159,6 +172,8 @@ def edit_task(task_id):
 
         database.commit()
 
+        flash("Task updated successfully.", "success")
+
         return redirect(url_for("task_list"))
 
     return render_template(
@@ -166,3 +181,35 @@ def edit_task(task_id):
         task_id=task_id,
         form_data=dict(task)
     )
+@app.route("/tasks/<int:task_id>/delete", methods=["GET", "POST"])
+def delete_task(task_id):
+    database = get_database()
+
+    task = database.execute(
+        """
+        SELECT id, title, subject, due_date
+        FROM tasks
+        WHERE id = ?
+        """,
+        (task_id,)
+    ).fetchone()
+
+    if request.method == "POST":
+        database.execute(
+        """
+        DELETE FROM tasks
+        WHERE id = ?
+        """,
+        (task_id,)
+    )
+
+    database.commit()
+
+    flash(
+        f'"{task["title"]}" was deleted successfully.',
+        "success"
+    )
+
+    return redirect(url_for("task_list"))
+
+    return render_template("delete_task.html", task=task)

@@ -20,23 +20,54 @@
             </a>
 
             <nav>
-                <a
-                    class="{% if request.endpoint == 'home' %}active{% endif %}"
-                    href="{{ url_for('home') }}"
-                 >
-                        Home
-                 </a>
+    <a
+        class="{% if request.endpoint == 'home' %}active{% endif %}"
+        href="{{ url_for('home') }}"
+    >
+        Home
+    </a>
 
-                <a
-                        class="{% if request.endpoint == 'task_list' %}active{% endif %}"
-                         href="{{ url_for('task_list') }}"
-                >
-                        Tasks
+    <a
+        class="{% if request.endpoint == 'task_list' %}active{% endif %}"
+        href="{{ url_for('task_list') }}"
+    >
+        Tasks
+    </a>
+
+    <a
+        class="{% if request.endpoint == 'add_task' %}active{% endif %}"
+        href="{{ url_for('add_task') }}"
+    >
+        Add Task
     </a>
 </nav>
         </div>
     </header>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flash-container">
+            {% for category, message in messages %}
+                <div
+                    class="flash-message flash-{{ category }}"
+                    role="status"
+                >
+                    <span>{{ message }}</span>
 
+                    <button
+                        class="flash-close"
+                        type="button"
+                        aria-label="Close message"
+                        onclick="this.parentElement.remove()"
+                    >
+                        &times;
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+<main>
     <main>
         {% block content %}
         {% endblock %}
